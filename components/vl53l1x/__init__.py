@@ -108,8 +108,8 @@ CONFIG_SCHEMA = (
 
 
 async def to_code(config: Dict):
-    cg.add_library("Wire", None)  # Required for VL53L1X_ULD to find Wire.h
-    cg.add_library("VL53L1X_ULD", "1.2.3", "https://github.com/rneurink/VL53L1X_ULD.git")
+    # VL53L1X_ULD ist jetzt direkt in dieser Komponente enthalten und nutzt den
+    # ESPHome-I2C-Bus statt Arduino Wire.
 
     vl53l1x = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(vl53l1x, config)

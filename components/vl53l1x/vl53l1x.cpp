@@ -3,6 +3,9 @@
 namespace esphome {
 namespace vl53l1x {
 
+// Definiert in VL53L1X_i2ccoms.cpp
+extern i2c::I2CDevice *uld_i2c_device;
+
 void VL53L1X::dump_config() {
   ESP_LOGCONFIG(TAG, "VL53L1X:");
   LOG_I2C_DEVICE(this);
@@ -25,6 +28,7 @@ void VL53L1X::dump_config() {
 
 void VL53L1X::setup() {
   ESP_LOGD(TAG, "Beginning setup");
+  uld_i2c_device = this;  // ULD-Bibliothek ueber den ESPHome-I2C-Bus laufen lassen
 
   // TODO use xshut_pin, if given, to change address
   auto status = this->init();
