@@ -37,7 +37,7 @@ void Roode::update() {
 
 void Roode::loop() {
   // unsigned long start = micros();
-  this->current_zone->readDistance(distanceSensor);
+  sensor_status = this->current_zone->readDistance(distanceSensor);
   // uint16_t samplingDistance = sampling(this->current_zone);
   path_tracking(this->current_zone);
   handle_sensor_status();
@@ -59,7 +59,9 @@ bool Roode::handle_sensor_status() {
   }
   if (sensor_status < 28 && sensor_status != VL53L1_ERROR_NONE) {
     ESP_LOGE(TAG, "Ranging failed with an error. status: %d", sensor_status);
-    status_sensor->publish_state(sensor_status);
+    if (status_sensor != nullptr) {
+      status_sensor->publish_state(sensor_status);
+    }
     check_status = false;
   }
 
