@@ -82,7 +82,7 @@ CONFIG_SCHEMA = cv.Schema(
             }
         ),
     }
-).extend(cv.COMPONENT_SCHEMA)
+).extend(cv.polling_component_schema("1s"))
 
 
 async def to_code(config: Dict):
